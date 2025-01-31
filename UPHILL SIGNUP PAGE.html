@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign-Up Page</title>
+    <style>
+        /* General styling */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #3e3e3e;
+        }
+
+        .holder {
+            width: 800px;
+            display: flex;
+            background: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .box {
+            flex: 1;
+            padding: 40px;
+            color: #fff;
+        }
+
+        .box h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #00d9ff;
+        }
+
+        .inputBox {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .inputBox input {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid #555;
+            color: #fff;
+            outline: none;
+        }
+
+        .inputBox span {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+            color: #aaa;
+            pointer-events: none;
+            transition: 0.5s;
+        }
+
+        .inputBox input:focus ~ span,
+        .inputBox input:valid ~ span {
+            top: -10px;
+            color: #00d9ff;
+            font-size: 0.9rem;
+        }
+
+        .links {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+        .links a {
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: #00d9ff;
+        }
+
+        input[type="submit"] {
+            background: #00d9ff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="holder">
+        <div class="box">
+            <form autocomplete="off">
+                <h2>Sign Up</h2>
+                <div class="inputBox">
+                    <input type="text" required="required">
+                    <span>Username</span>
+                </div>
+                <div class="inputBox">
+                    <input type="email" required="required">
+                    <span>Email</span>
+                </div>
+                <div class="inputBox">
+                    <input type="password" required="required">
+                    <span>Password</span>
+                </div>
+                <div class="links">
+                    <a href="UPHILL LOGIN PAGE.html">Back to Login</a>
+                </div>
+                <input type="submit" value="Sign Up">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

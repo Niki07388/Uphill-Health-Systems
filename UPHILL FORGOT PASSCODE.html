@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password</title>
+    <style>
+        /* General styling */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #3e3e3e;
+        }
+
+        .holder {
+            width: 400px;
+            padding: 40px;
+            background: #000;
+            border-radius: 15px;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .holder h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #ff007f;
+        }
+
+        .inputBox {
+            position: relative;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .inputBox input {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid #555;
+            color: #fff;
+            outline: none;
+        }
+
+        .inputBox span {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+            color: #aaa;
+            pointer-events: none;
+            transition: 0.5s;
+        }
+
+        .inputBox input:focus ~ span,
+        .inputBox input:valid ~ span {
+            top: -10px;
+            color: #ff007f;
+            font-size: 0.9rem;
+        }
+
+        input[type="submit"] {
+            background: #ff007f;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background: #e6006b;
+        }
+
+        .links a {
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: #ff007f;
+        }
+    </style>
+</head>
+<body>
+    <div class="holder">
+        <h2>Forgot Password</h2>
+        <form autocomplete="off">
+            <div class="inputBox">
+                <input type="email" required="required">
+                <span>Enter your email</span>
+            </div>
+            <input type="submit" value="Reset Password">
+            <br><br>
+            <a href="UPHILL LOGIN PAGE.html">Back to Login</a> <!-- Link to Login Page -->
+        </form>
+    </div>
+</body>
+</html>

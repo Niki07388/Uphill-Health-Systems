@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feedback - Uphill Health Bots</title>
+<style>
+/* General Reset and Styling */
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Arial', sans-serif;
+    color: #000;
+    background-color: #f9f9f9;
+    padding: 20px;
+}
+
+/* Feedback Form Styling */
+.feedback-container {
+    width: 90%;
+    max-width: 500px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    color: #000;
+}
+
+.feedback-container h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.feedback-container label {
+    display: block;
+    margin: 10px 0 5px;
+    font-size: 1rem;
+}
+
+.feedback-container input,
+.feedback-container textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.feedback-container button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: none;
+    background-color: #FFA500;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.feedback-container button:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+a {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #FFA500;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+</style>
+</head>
+<body>
+    <div class="feedback-container">
+        <h2>We Value Your Feedback!</h2>
+        <p>
+        <form action="thankyou.html" method="get">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+            <label for="feedback">Your Feedback:</label>
+            <textarea id="feedback" name="feedback" rows="5" placeholder="Share your thoughts..." required></textarea>
+
+            <button type="submit">Submit Feedback</button>
+        </form>
+        <a href="UPHILL.html">Back to Home</a>
+    </div>
+</body>
+</html>

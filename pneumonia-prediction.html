@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pneumonia Analysis</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to bottom right, #3498db, #2c3e50);
+        color: #fff;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .container {
+        background: rgba(0, 0, 0, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        max-width: 400px;
+        width: 100%;
+        text-align: center;
+    }
+
+    header {
+        text-align: center;
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        color: #1abc9c;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    label {
+        margin-bottom: 10px;
+        font-size: 1.1rem;
+    }
+
+    input {
+        padding: 10px;
+        margin-bottom: 15px;
+        border: none;
+        border-radius: 5px;
+        width: 100%;
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    button {
+        padding: 10px;
+        background: #1abc9c;
+        color: #000;
+        font-size: 1.2rem;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    button:hover {
+        background: #16a085;
+        color: #fff;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <header>Pneumonia Analysis</header>
+    <form id="pneumonia-form" action="http://your-backend-endpoint/pneumonia-predict" method="post" enctype="multipart/form-data">
+        <label for="xray">Upload Chest X-ray Image</label>
+        <input type="file" id="xray" name="xray" accept="image/*" required>
+        <button type="submit">Analyze</button>
+    </form>
+</div>
+
+</body>
+</html>

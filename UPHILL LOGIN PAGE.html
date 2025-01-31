@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        /* General styling */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #3e3e3e;
+        }
+
+        .holder {
+            width: 800px;
+            display: flex;
+            background: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .box {
+            flex: 1;
+            padding: 40px;
+            color: #fff;
+        }
+
+        .box h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ff007f;
+        }
+
+        .inputBox {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .inputBox input {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid #555;
+            color: #fff;
+            outline: none;
+        }
+
+        .inputBox span {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+            color: #aaa;
+            pointer-events: none;
+            transition: 0.5s;
+        }
+
+        .inputBox input:focus ~ span,
+        .inputBox input:valid ~ span {
+            top: -10px;
+            color: #ff007f;
+            font-size: 0.9rem;
+        }
+
+        .links {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .links a {
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: #ff007f;
+        }
+
+        input[type="submit"] {
+            background: #ff007f;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        /* Welcome Section */
+        .welcome {
+            flex: 1;
+            background: linear-gradient(135deg, #ff007f 50%, #000 50%);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .welcome h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="holder">
+        <!-- Left side: Form -->
+        <div class="box">
+            <form action="https://app.cxgenie.ai/workspaces" method="get" autocomplete="off">
+                <h2>Login</h2>
+                <div class="inputBox">
+                    <input type="text" name="username" required="required">
+                    <span>Username</span>
+                </div>
+                <div class="inputBox">
+                    <input type="password" name="password" required="required">
+                    <span>Password</span>
+                </div>
+                <div class="links">
+                    <a href="UPHILL FORGOT PASSCODE.html">Forgot Password?</a>
+                    <a href="UPHILL SIGNUP PAGE.html">Sign Up</a>
+                </div>
+                <input type="submit" value="Login">
+            </form>
+        </div>
+        <!-- Right side: Welcome section -->
+        <div class="welcome">
+            <h2>WELCOME TO UPHILL!</h2>
+            <p>Create account and login for more information </p>
+        </div>
+    </div>
+</body>
+</html>
+

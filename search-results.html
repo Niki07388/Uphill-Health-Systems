@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search Results - Health analysis</title>
+<style>
+/* General Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* Header Styling */
+header {
+    width: 100%;
+    padding: 20px;
+    background-color: #FFA500;
+    text-align: center;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Container for Predictions */
+.container {
+    margin: 20px auto;
+    width: 90%;
+    max-width: 800px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Prediction Links */
+.prediction {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.prediction a {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: #fff;
+    background-color: #007BFF;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.prediction a:hover {
+    background-color: #0056b3;
+}
+
+/* Footer */
+footer {
+    margin-top: auto;
+    text-align: center;
+    padding: 10px 0;
+    color: Black;
+    font-size: 1rem;
+}
+</style>
+</head>
+<body>
+
+<header>
+    Health Predictions - Search Results
+</header>
+
+<div class="container">
+    <div class="prediction">
+        <h2>Cardiac risk analysis</h2>
+        <p>Use this tool to Analyze the risk of heart disease</p>
+        <a href="heart-disease-prediction.html" target="_blank">Go to Cardiac risk analysis</a>
+    </div>
+    <hr>
+    <div class="prediction">
+        <h2>Pneumonia Analysis</h2>
+        <p>Upload your chest X-ray image to Diagonize the report</p>
+        <a href="pneumonia-prediction.html" target="_blank">Go to Pneumonia Analysis</a>
+    </div>
+</div>
+
+<footer>
+    &copy; 2025 Uphill Health Bots. All Rights Reserved.
+</footer>
+
+</body>
+</html>
