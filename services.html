@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - Uphill Health</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">Uphill Health</h1>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('about_us') }}">About Us</a></li>
+                    <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                    <li><a href="{{ url_for('services') }}" class="active">Services</a></li>
+                    <li><a href="{{ url_for('reports') }}">Reports</a></li>
+                    <li><a href="{{ url_for('profile') }}">Profile</a></li>
+                    <li><a href="{{ url_for('settings') }}">Settings</a></li>
+                    {% if 'user' in session %}
+                        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    {% else %}
+                        <li><a href="{{ url_for('login') }}">Login</a></li>
+                        <li><a href="{{ url_for('signup') }}">Signup</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container content-section">
+        <h2>Our Healthcare Services</h2>
+        <p class="intro-text">At Uphill Health, we are committed to providing comprehensive and accessible healthcare solutions. Explore our range of services designed to support your well-being.</p>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fas fa-calendar-check service-icon"></i>
+                <h3>Appointment Booking</h3>
+                <p>Easily schedule in-person appointments with qualified doctors and specialists at your preferred location.</p>
+                <a href="{{ url_for('appointment_booking') }}" class="btn btn-primary">Book Now</a>
+            </div>
+
+            <div class="service-card">
+                <i class="fas fa-video service-icon"></i>
+                <h3>Video Consultation</h3>
+                <p>Connect with healthcare professionals from the comfort of your home through secure video calls.</p>
+                <a href="{{ url_for('video_consultation') }}" class="btn btn-primary">Start Consultation</a>
+            </div>
+
+            <div class="service-card">
+                <i class="fas fa-microscope service-icon"></i>
+                <h3>AI-Powered Health Analysis</h3>
+                <p>Upload your health reports and symptoms for preliminary AI-driven risk assessment and insights.</p>
+                <a href="{{ url_for('ai_risk_analysis') }}" class="btn btn-primary">Get Analysis</a>
+            </div>
+
+            <div class="service-card">
+                <i class="fas fa-heartbeat service-icon"></i>
+                <h3>ECG Monitoring</h3>
+                <p>Monitor your heart health with our integrated ECG monitoring tools and receive timely alerts.</p>
+                <a href="{{ url_for('ecg_monitoring') }}" class="btn btn-primary">Learn More</a>
+            </div>
+
+            <div class="service-card">
+                <i class="fas fa-pills service-icon"></i>
+                <h3>Medicine Booking</h3>
+                <p>Order your prescribed medicines and over-the-counter drugs conveniently online for home delivery or pharmacy pickup.</p>
+                <a href="{{ url_for('medicines') }}" class="btn btn-primary">Order Medicines</a>
+            </div>
+
+            <div class="service-card">
+                <i class="fas fa-file-prescription service-icon"></i>
+                <h3>Upload Prescription</h3>
+                <p>Securely upload your prescriptions for review and easy ordering of your medications.</p>
+                <a href="{{ url_for('upload_prescription') }}" class="btn btn-primary">Upload Now</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Uphill Health. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="{{ url_for('data_security') }}">Data Security & Privacy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

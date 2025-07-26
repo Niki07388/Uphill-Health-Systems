@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Uphill Health</title>
+    <!-- Google Fonts - Poppins (used in original dashboard) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General Body and Container Styles (from dashboard) */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #2c3e50; /* Dark background */
+            color: #ecf0f1; /* Light text */
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1200px; /* Adjusted for consistency with other pages */
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Content Section Styles (from dashboard) */
+        .content-section {
+            background-color: #34495e; /* Darker content background */
+            margin-top: 20px;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .content-section h2 {
+            color: #ecf0f1; /* Light text for headings */
+            font-size: 2.2em; /* Slightly larger for main heading */
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .content-section h3 {
+            color: #3498db; /* Blue for subheadings */
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #557999; /* Slightly lighter border */
+            padding-bottom: 10px;
+        }
+
+        /* Specific About Us Section Styles */
+        .intro-text {
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            color: #bdc3c7; /* Slightly lighter text for intro */
+        }
+        .info-section {
+            background-color: #46627f; /* Slightly lighter background for info boxes */
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 10px rgba(0,0,0,.2);
+            color: #ecf0f1; /* Light text for info section */
+        }
+        .info-section h2, .info-section h3 {
+            color: #1abc9c; /* Teal for info section headings */
+            margin-bottom: 20px;
+        }
+        .info-section p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+        .info-section ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+        .info-section ul li {
+            background-color: #5d7a97; /* Even lighter background for list items */
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-left: 5px solid #1abc9c; /* Teal accent bar */
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            font-size: 1.05em;
+            box-shadow: 0 2px 5px rgba(0,0,0,.1);
+        }
+        .info-section ul li i {
+            margin-right: 15px;
+            color: #1abc9c; /* Teal icon color */
+            font-size: 1.5em;
+        }
+
+        /* Team Section Specific Styles */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted min-width for better spacing */
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .team-member {
+            text-align: center;
+            background-color: #46627f; /* Consistent with info-section background */
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            color: #ecf0f1;
+        }
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0,0,0,.3);
+        }
+        .team-member img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 4px solid #1abc9c; /* Teal border */
+            box-shadow: 0 0 0 2px rgba(26,188,156,0.3); /* Teal halo effect */
+        }
+        .team-member h4 {
+            color: #ecf0f1; /* Light text */
+            margin-bottom: 5px;
+            font-size: 1.2em;
+        }
+        .team-member p {
+            color: #bdc3c7; /* Slightly lighter text */
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+
+        /* CTA button style for the end of the page */
+        .cta-button {
+            display: inline-block;
+            background-color: #1abc9c; /* Teal button */
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .cta-button:hover {
+            background-color: #16a085; /* Darker teal on hover */
+            transform: translateY(-2px);
+        }
+
+        /* Footer Styles (from dashboard) */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 40px;
+            background-color: #1a242f; /* Dark footer */
+            color: #f4f7f6;
+            font-size: 0.9em;
+        }
+        footer a {
+            color: #1abc9c; /* Teal for footer links */
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        .footer-links a {
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <main class="container content-section">
+        <h2 class="text-center mb-4">About Uphill Health</h2>
+        <p class="intro-text text-center">Your trusted partner in personalized digital healthcare.</p>
+
+        <div class="info-section">
+            <h3>Our Vision</h3>
+            <p>At Uphill Health, our vision is to revolutionize healthcare accessibility and personalized well-being. We believe that everyone deserves easy, intelligent, and reliable access to health management tools, from routine check-ups to comprehensive health analysis and medication delivery. We are committed to empowering individuals to take proactive control of their health journey, ensuring a healthier and happier life for all.</p>
+        </div>
+
+        <div class="info-section">
+            <h3>Who We Are</h3>
+            <p>Uphill Health is an innovative digital health platform dedicated to integrating cutting-edge technology with compassionate care. Founded on the principles of accessibility, accuracy, and user empowerment, our team comprises healthcare professionals, AI specialists, software engineers, and customer service experts, all working in synergy to bring you a seamless health experience.</p>
+            <p>We leverage advanced AI capabilities, including large language models (LLMs), to provide insightful health analysis, making complex medical information understandable and actionable. Our secure, user-friendly platform connects you with medical services, from online consultations to prescription management, right at your fingertips.</p>
+        </div>
+
+        <div class="info-section">
+            <h3>What We Offer</h3>
+            <ul>
+                <li><i class="fas fa-microscope"></i> **AI-Powered Health Analysis:** Upload your health reports and symptoms for an intelligent, preliminary assessment, providing insights into possible conditions and suggested next steps.</li>
+                <li><i class="fas fa-calendar-alt"></i> **Appointment Scheduling:** Easily book and manage in-person appointments with healthcare providers.</li>
+                <li><i class="fas fa-video"></i> **Video Consultations:** Connect with doctors remotely for convenient and efficient medical advice.</li>
+                <li><i class="fas fa-pills"></i> **Online Pharmacy & Prescription Management:** Order medicines with ease and manage your prescriptions securely.</li>
+                <li><i class="fas fa-file-medical"></i> **Personalized Health Reports:** Generate and download comprehensive reports of your health data and AI analyses.</li>
+                <li><i class="fas fa-user-md"></i> **Secure User Profiles:** Manage your personal health information and communication in a private and protected environment.</li>
+            </ul>
+        </div>
+
+        <div class="info-section">
+            <h3>Our Mission</h3>
+            <p>Our mission is to bridge the gap between healthcare services and individuals through technology, making health management efficient, transparent, and user-centric. We strive to:</p>
+            <ul>
+                <li><i class="fas fa-lightbulb"></i> **Simplify Healthcare Access:** Reduce barriers to medical care and information.</li>
+                <li><i class="fas fa-hands-helping"></i> **Empower Users:** Provide tools and insights that enable informed health decisions.</li>
+                <li><i class="fas fa-shield-alt"></i> **Ensure Privacy & Security:** Protect your sensitive health data with the highest standards.</li>
+                <li><i class="fas fa-flask"></i> **Innovate Continuously:** Constantly evolve our platform with the latest advancements in AI and healthcare technology.</li>
+            </ul>
+        </div>
+
+        <div class="info-section">
+            <h3>Meet Our Founders</h3>
+            <p class="text-center">Uphill Health was founded by a passionate team of AI and Data Science Engineers dedicated to transforming healthcare.</p>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="{{ url_for('static', filename='images/Nikhil_kasyap1.jpg') }}" alt="H. Nikhil Kasyap">
+                    <h4>H. Nikhil Kasyap</h4>
+                    <p>AI & Data Science(Medical engineering)</p>
+                    <p>Nikhil's expertise in artificial intelligence drives the intelligent analysis and predictive capabilities of Uphill Health. He's committed to leveraging data to provide accurate and actionable health insights.</p>
+                </div>
+                <div class="team-member">
+                    <img src="{{ url_for('static', filename='images/photo.jpeg') }}" alt="S. Pranay Kumar Reddy">
+                    <h4>S. Pranay Kumar Reddy</h4>
+                    <p>CSE(AI & Data Science)</p>
+                    <p>Pranay's strong background in data science ensures the robust architecture and efficient processing of health data, building the reliable foundation for our AI-powered solutions.</p>
+                </div>
+            </div>
+
+           <h3>Meet Uphill's Doctors</h3>
+            <p class="text-center">Uphill Health was managed by a passionate team of Doctors dedicated to transforming healthcare.</p>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="{{ url_for('static', filename='images/WhatsApp Image 2025-07-22 at 19.08.11_e2e5fab3.jpg') }}" alt="H. Nikhil Kasyap">
+                    <h4>B.V.Manjunath</h4>
+                    <p></p>
+                </div>
+                </div>
+        </div>
+
+        <div class="info-section" style="text-align: center;">
+            <h3>Join the Uphill Health Family</h3>
+            <p>Experience the future of personal health management. Sign up today and take the first step towards a healthier you.</p>
+            <a href="{{ url_for('login') }}" class="cta-button">Get Started Now</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; {{ datetime.now().year if datetime else '2024' }} Uphill Health. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#datasecurity">Data Security & Privacy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

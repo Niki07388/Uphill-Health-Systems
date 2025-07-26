@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | Uphill Health Bots</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --light-bg: #f5f7fa;
+            --dark-bg: #1a1a2e;
+            --light-text: #2c3e50;
+            --dark-text: #e0e0e0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            transition: background 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+        .dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(90deg, #2c3e50, #3498db);
+            color: white;
+            padding: 15px 30px;
+            margin-left: 280px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: calc(100% - 280px);
+            z-index: 1000;
+        }
+        .navbar h2 {
+            font-size: 24px;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        .profile-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 15px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .profile-icon:hover {
+            transform: scale(1.1);
+        }
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            min-width: 200px;
+            z-index: 1000;
+        }
+        .dark-mode .profile-dropdown {
+            background: #2c3e50;
+            color: var(--dark-text);
+        }
+        .profile-dropdown.active {
+            display: block;
+        }
+        .profile-dropdown p {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            color: var(--light-text);
+        }
+        .dark-mode .profile-dropdown p {
+            color: var(--dark-text);
+        }
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: linear-gradient(180deg, #2c3e50, #34495e);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            color: white;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+            transition: width 0.3s;
+        }
+        .sidebar h2 {
+            font-size: 22px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #ecf0f1;
+        }
+        .sidebar a {
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 12px 15px;
+            margin: 10px 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            transition: background 0.3s, color 0.3s;
+        }
+        .sidebar a:hover {
+            background: #e74c3c;
+            color: white;
+        }
+        .container {
+            text-align: center;
+            margin: 100px 30px 50px 280px;
+            max-width: 900px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        .dark-mode .container {
+            background: rgba(30, 30, 30, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            color: #e0e0e0;
+        }
+        .settings-option {
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid #3498db;
+            border-radius: 8px;
+            transition: transform 0.3s, background 0.3s;
+        }
+        .settings-option:hover {
+            transform: translateX(10px);
+            background: rgba(52, 152, 219, 0.2);
+        }
+        .settings-option span {
+            font-size: 18px;
+            color: #2c3e50;
+        }
+        .dark-mode .settings-option span {
+            color: #ecf0f1;
+        }
+        .toggle-btn {
+            cursor: pointer;
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #8e44ad, #9b59b6);
+            border: none;
+            color: white;
+            border-radius: 25px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .toggle-btn:hover {
+            background: linear-gradient(45deg, #9b59b6, #7f349a);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(142, 68, 173, 0.4);
+        }
+        .toggle-btn span {
+            margin-left: 8px;
+            font-size: 18px;
+        }
+        .save-btn {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            cursor: pointer;
+            border-radius: 25px;
+            font-size: 16px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        .save-btn:hover {
+            background: linear-gradient(45deg, #2980b9, #1f618d);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+        .logout-btn {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        .dark-mode .logout-btn {
+            color: white;
+        }
+        .logout-btn:hover {
+            background: linear-gradient(45deg, #c0392b, #a93226);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #3498db;
+        }
+        .dark-mode input[type="checkbox"] {
+            accent-color: #9b59b6;
+        }
+        select {
+            padding: 10px;
+            border-radius: 25px;
+            border: 2px solid #ddd;
+            font-size: 16px;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        select:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        .dark-mode select {
+            background: #2c3e50;
+            color: #e0e0e0;
+            border-color: #34495e;
+        }
+        .action-btn {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        .action-btn:hover {
+            background: linear-gradient(45deg, #c0392b, #a93226);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Menu</h2>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/profile">Profile</a>
+        <a href="/settings">Settings</a>
+        <a href="/reports">Reports</a>
+        <a href="/services">Services</a>
+    </div>
+    
+    <div class="navbar">
+        <h2>Uphill Health Bots</h2>
+        <button class="toggle-btn" onclick="toggleDarkMode()">
+            Dark Mode
+            <span id="darkIcon">🌙</span>
+        </button>
+        <div class="profile">
+            <span>Welcome, {{ username }}</span>
+            <img class="profile-icon" src="{{ '/static/uploads/' + profile_pic if profile_pic != 'default.jpg' else 'https://via.placeholder.com/40' }}" alt="Profile Photo" onclick="toggleProfileDropdown()">
+            <div class="profile-dropdown" id="profileDropdown">
+                <p>Email: {{ email | default('Not provided') }}</p>
+                <button class="logout-btn" onclick="window.location.href='{{ url_for('logout') }}'">Log Out</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2>Settings</h2>
+        
+        <div class="settings-option">
+            <span>Email Notifications</span>
+            <input type="checkbox" id="emailNotifications">
+        </div>
+        
+        <div class="settings-option">
+            <span>SMS Notifications</span>
+            <input type="checkbox" id="smsNotifications">
+        </div>
+        
+        <div class="settings-option">
+            <span>Push Notifications</span>
+            <input type="checkbox" id="pushNotifications">
+        </div>
+
+        <div class="settings-option">
+            <span>Language Preference</span>
+            <select id="languagePreference">
+                <option value="en">English</option>
+                <option value="es">Spanish</option>
+                <option value="fr">French</option>
+                <option value="de">German</option>
+            </select>
+        </div>
+
+        <div class="settings-option">
+            <span>Export Health Data</span>
+            <button class="action-btn" onclick="exportData()">Export</button>
+        </div>
+
+        <div class="settings-option">
+            <span>Delete Account</span>
+            <button class="action-btn" onclick="deleteAccount()">Delete</button>
+        </div>
+
+        <button class="save-btn" onclick="saveSettings()">Save Settings</button>
+    </div>
+    
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+            const icon = document.getElementById('darkIcon');
+            icon.textContent = document.body.classList.contains("dark-mode") ? '☀️' : '🌙';
+        }
+
+        function toggleProfileDropdown() {
+            const dropdown = document.getElementById('profileDropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        function saveSettings() {
+            const email = document.getElementById("emailNotifications").checked;
+            const sms = document.getElementById("smsNotifications").checked;
+            const push = document.getElementById("pushNotifications").checked;
+            const language = document.getElementById("languagePreference").value;
+            
+            fetch("/save_settings", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email_notifications: email, sms_notifications: sms, push_notifications: push, language_preference: language })
+            }).then(response => response.json())
+              .then(data => alert(data.message))
+              .catch(error => alert("Error saving settings: " + error));
+        }
+
+        function exportData() {
+            window.location.href = "/download_csv";
+        }
+
+        function deleteAccount() {
+            if (confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
+                fetch("/delete_account", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({})
+                }).then(response => response.json())
+                  .then(data => {
+                      alert(data.message);
+                      window.location.href = "/logout";
+                  })
+                  .catch(error => alert("Error deleting account: " + error));
+            }
+        }
+    </script>
+</body>
+</html>

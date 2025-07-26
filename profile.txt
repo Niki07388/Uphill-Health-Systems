@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | Uphill Health Bots</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            transition: background 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+        .dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(90deg, #2c3e50, #3498db);
+            color: white;
+            padding: 15px 30px;
+            margin-left: 280px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: calc(100% - 280px);
+            z-index: 1000;
+        }
+        .navbar h2 {
+            font-size: 24px;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+        }
+        .profile-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff7e5f, #feb47b);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: white;
+            margin-left: 15px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .profile-icon:hover {
+            transform: scale(1.1);
+        }
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: linear-gradient(180deg, #2c3e50, #34495e);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            color: white;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+            transition: width 0.3s;
+        }
+        .sidebar h2 {
+            font-size: 22px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #ecf0f1;
+        }
+        .sidebar a {
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 12px 15px;
+            margin: 10px 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            transition: background 0.3s, color 0.3s;
+        }
+        .sidebar a:hover {
+            background: #e74c3c;
+            color: white;
+        }
+        .container {
+            text-align: center;
+            margin: 100px 30px 50px 280px;
+            max-width: 900px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        .dark-mode .container {
+            background: rgba(30, 30, 30, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            color: #e0e0e0;
+        }
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #FFA500;
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .upload-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .save-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        label {
+            display: block;
+            font-size: 18px;
+            color: #2c3e50;
+            margin-top: 15px;
+        }
+        .dark-mode label {
+            color: #ecf0f1;
+        }
+        .dark-mode input {
+            background: #2c3e50;
+            color: #e0e0e0;
+            border-color: #34495e;
+        }
+        .dark-mode .upload-btn, .dark-mode .save-btn {
+            color: white;
+        }
+        .toggle-btn {
+            cursor: pointer;
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #8e44ad, #9b59b6);
+            border: none;
+            color: white;
+            border-radius: 25px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .toggle-btn:hover {
+            background: linear-gradient(45deg, #9b59b6, #7f349a);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(142, 68, 173, 0.4);
+        }
+        .toggle-btn span {
+            margin-left: 8px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Menu</h2>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/profile">Profile</a>
+        <a href="/settings">Settings</a>
+        <a href="/reports">Reports</a>
+        <a href="/services">Services</a>
+    </div>
+    
+    <div class="navbar">
+        <h2>Uphill Health Bots</h2>
+        <button class="toggle-btn" onclick="toggleDarkMode()">
+            Dark Mode
+            <span id="darkIcon">🌙</span>
+        </button>
+        <div class="profile">
+            <span>Welcome, {{ username }}</span>
+            <div class="profile-icon">{{ username[0].upper() }}</div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2>Your Profile</h2>
+        <img class="profile-pic" src="{{ url_for('static', filename='uploads/' + profile_pic) }}" alt="Profile Picture">
+        <form method="POST" enctype="multipart/form-data">
+            <label>Upload New Profile Picture:</label>
+            <input type="file" name="profile_pic">
+            <button type="submit" class="upload-btn">Upload</button>
+
+            <label>Username:</label>
+            <input type="text" name="username" value="{{ username }}" required>
+            
+            <label>Email:</label>
+            <input type="email" name="email" value="{{ email }}" required>
+            
+            <label>New Password:</label>
+            <input type="password" name="password" placeholder="Enter new password (optional)">
+
+            <button type="submit" class="save-btn">Save Changes</button>
+        </form>
+    </div>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+            const icon = document.getElementById('darkIcon');
+            icon.textContent = document.body.classList.contains("dark-mode") ? '☀️' : '🌙';
+        }
+    </script>
+</body>
+</html>

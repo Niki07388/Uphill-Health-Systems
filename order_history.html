@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order History - Uphill Health</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">Uphill Health</h1>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('about_us') }}">About Us</a></li>
+                    <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                    <li><a href="{{ url_for('services') }}">Services</a></li>
+                    <li><a href="{{ url_for('reports') }}">Reports</a></li>
+                    <li><a href="{{ url_for('profile') }}">Profile</a></li>
+                    <li><a href="{{ url_for('settings') }}">Settings</a></li>
+                    {% if 'user' in session %}
+                        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    {% else %}
+                        <li><a href="{{ url_for('login') }}">Login</a></li>
+                        <li><a href="{{ url_for('signup') }}">Signup</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container content-section">
+        <h2>Your Medicine Order History</h2>
+        <p class="intro-text">View details of your past medicine orders.</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% if orders %}
+            <div class="order-history-list">
+                {% for order in orders %}
+                <div class="order-card" id="order-{{ order.id }}">
+                    <h3>Order ID: #{{ order.id }}</h3>
+                    <p><strong>Order Date:</strong> {{ order.order_date.strftime('%Y-%m-%d %H:%M') }}</p>
+                    <p><strong>Total Amount:</strong> ₹{{ "%.2f"|format(order.total_amount) }}</p>
+                    <p><strong>Status:</strong> <span class="status-{{ order.status | lower | replace(' ', '-') }}">{{ order.status }}</span></p>
+                    <p><strong>Delivery Address:</strong> {{ order.delivery_address }}</p>
+                    
+                    <h4>Ordered Items:</h4>
+                    <ul class="ordered-items-list">
+                        {% for item in order.order_items %}
+                            <li>
+                                {{ item.quantity }} x {{ item.medicine.name }} ({{ item.medicine.dosage }}) @ ₹{{ "%.2f"|format(item.price_at_order) }} each
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>You haven't placed any medicine orders yet.</p>
+        {% endif %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Uphill Health. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="{{ url_for('data_security') }}">Data Security & Privacy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

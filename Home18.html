@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uphill Health - Your Digital Health Partner</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Light gray background */
+            color: #334155; /* Dark slate text */
+        }
+        /* Custom styles for gradients and shadows if needed, though Tailwind covers most */
+        .gradient-hero {
+            background: linear-gradient(to right, #10b981, #3b82f6); /* Green to Blue gradient */
+        }
+        .card-shadow {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md py-4">
+        <div class="container mx-auto flex justify-between items-center px-4 sm:px-6 lg:px-8">
+            <!-- Logo -->
+            <a href="#" class="text-3xl font-bold text-teal-600">Uphill Health</a>
+
+            <!-- Navigation -->
+            <nav class="hidden md:block">
+                <ul class="flex space-x-6">
+                    <li><a href="#" class="text-gray-700 hover:text-teal-600 font-medium transition duration-300">Home</a></li>
+                    <li><a href="#services" class="text-gray-700 hover:text-teal-600 font-medium transition duration-300">Services</a></li>
+                    <li><a href="#doctors" class="text-gray-700 hover:text-teal-600 font-medium transition duration-300">Doctors</a></li>
+                    <li><a href="{{ url_for('login_aboutus') }}" class="text-gray-700 hover:text-teal-600 font-medium transition duration-300">About Us</a></li>
+                    <li><a href="#contact" class="text-gray-700 hover:text-teal-600 font-medium transition duration-300">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- Auth Buttons (Login/Register) -->
+            <div class="hidden md:flex space-x-4">
+                <a href="{{ url_for('login') }}" class="px-5 py-2 rounded-full border border-teal-600 text-teal-600 hover:bg-teal-50 transition duration-300 font-medium">Login</a>
+                <a href="{{ url_for('signup') }}" class="px-5 py-2 rounded-full bg-teal-600 text-white hover:bg-teal-700 transition duration-300 font-medium">Register</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-gray-700 focus:outline-none" id="mobile-menu-button">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div class="md:hidden bg-white py-2" id="mobile-menu" style="display: none;">
+            <ul class="flex flex-col items-center space-y-3">
+                <li><a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md w-full text-center">Home</a></li>
+                <li><a href="#services" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md w-full text-center">Services</a></li>
+                <li><a href="#doctors" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md w-full text-center">Doctors</a></li>
+                <li><a href="#about" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md w-full text-center">About Us</a></li>
+                <li><a href="#contact" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md w-full text-center">Contact</a></li>
+                <li class="w-full"><a href="{{ url_for('login') }}" class="block px-4 py-2 text-teal-600 hover:bg-teal-50 rounded-full border border-teal-600 mx-auto text-center w-3/4">Login</a></li>
+                <li class="w-full"><a href="{{ url_for('signup') }}" class="block px-4 py-2 bg-teal-600 text-white hover:bg-teal-700 rounded-full mx-auto text-center w-3/4">Register</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="gradient-hero text-white py-20 px-4 sm:px-6 lg:px-8 text-center">
+            <div class="container mx-auto max-w-4xl">
+                <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6 animate-fade-in-down">
+                    Your Health, Our Priority. Anytime, Anywhere.
+                </h1>
+                <p class="text-xl md:text-2xl mb-10 opacity-90 animate-fade-in-up">
+                    Connecting you with trusted doctors and essential health services, right from your home.
+                </p>
+                <a href="{{ url_for('signup') }}" class="inline-block bg-white text-teal-600 hover:bg-gray-100 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transform hover:scale-105 transition duration-300 animate-bounce-in">
+                    Book an Appointment Today
+                </a>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+            <div class="container mx-auto">
+                <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">Our Services</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Service Card 1: Online Consultations -->
+                    <div class="bg-white rounded-xl p-8 card-shadow hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+                        <div class="text-teal-600 text-5xl mb-6 text-center">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-4 text-center">Online Consultations</h3>
+                        <p class="text-gray-600 text-center">Connect with certified doctors via secure video calls from the comfort of your home.</p>
+                        <a href="{{ url_for('signup') }}" class="block mt-6 text-center text-teal-600 hover:text-teal-800 font-medium">Learn More <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+
+                    <!-- Service Card 2: Medicine Delivery -->
+                    <div class="bg-white rounded-xl p-8 card-shadow hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+                        <div class="text-teal-600 text-5xl mb-6 text-center">
+                            <i class="fas fa-pills"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-4 text-center">Medicine Delivery</h3>
+                        <p class="text-gray-600 text-center">Get your prescribed medicines delivered safely and quickly to your doorstep.</p>
+                        <a href=""{{ url_for('signup') }}"" class="block mt-6 text-center text-teal-600 hover:text-teal-800 font-medium">Order Now <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+
+                    <!-- Service Card 3: Prescription Upload -->
+                    <div class="bg-white rounded-xl p-8 card-shadow hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+                        <div class="text-teal-600 text-5xl mb-6 text-center">
+                            <i class="fas fa-file-prescription"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-4 text-center">Prescription Upload</h3>
+                        <p class="text-gray-600 text-center">Easily upload and manage your prescriptions for seamless medicine ordering.</p>
+                        <a href="{{ url_for('signup') }}" class="block mt-6 text-center text-teal-600 hover:text-teal-800 font-medium">Upload Now <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+
+                    <!-- Service Card 4: Lab Tests & Diagnostics -->
+                    <div class="bg-white rounded-xl p-8 card-shadow hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+                        <div class="text-teal-600 text-5xl mb-6 text-center">
+                            <i class="fas fa-flask"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-4 text-center">Lab Tests & Diagnostics</h3>
+                        <p class="text-gray-600 text-center">Schedule lab tests and get accurate diagnostic reports online.</p>
+                        <a href="#" class="block mt-6 text-center text-teal-600 hover:text-teal-800 font-medium">Book a Test <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about" class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+            <div class="container mx-auto flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <img src="https://placehold.co/600x400/E0F2F7/2C3E50?text=Caring+Professionals" alt="About Uphill Health" class="rounded-xl shadow-lg w-full h-auto object-cover">
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="text-4xl font-bold text-gray-800 mb-6">About Uphill Health</h2>
+                    <p class="text-gray-600 text-lg mb-4">
+                        At Uphill Health, we are committed to revolutionizing healthcare by making it accessible, convenient, and personal. Our platform connects you with a network of highly qualified doctors and essential medical services, all from the comfort of your home.
+                    </p>
+                    <p class="text-gray-600 text-lg">
+                        We believe in a patient-centric approach, leveraging technology to ensure you receive timely and quality care, whether it's an online consultation, medicine delivery, or managing your prescriptions. Your well-being is our utmost priority.
+                    </p>
+                    <a href="{{ url_for('login_aboutus') }}" class="inline-block mt-8 bg-teal-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-teal-700 transition duration-300">
+                        Learn More About Us
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+            <div class="container mx-auto">
+                <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">What Our Patients Say</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="bg-white rounded-xl p-8 card-shadow hover:shadow-xl transition duration-300">
+                        <p class="text-gray-700 text-lg italic mb-6">"Uphill Health has transformed how I access healthcare. The online consultations are incredibly convenient, and the doctors are truly caring and professional."</p>
+                        <div class="flex items-center">
+                            <img src="https://placehold.co/60x60/B2EBF2/000000?text=JD" alt="Patient Avatar" class="w-16 h-16 rounded-full mr-4 object-cover">
+                            <div>
+                                <p class="font-semibold text-gray-800">Mukesh kumar</p>
+                                <p class="text-gray-500 text-sm">Satisfied Patient</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="bg-white rounded-xl p-8 card-shadow hover:shadow-xl transition duration-300">
+                        <p class="text-gray-700 text-lg italic mb-6">"Ordering medicines has never been easier! With prescription upload and home delivery, Uphill Health saves me so much time and effort."</p>
+                        <div class="flex items-center">
+                            <img src="https://placehold.co/60x60/FFCDD2/000000?text=MS" alt="Patient Avatar" class="w-16 h-16 rounded-full mr-4 object-cover">
+                            <div>
+                                <p class="font-semibold text-gray-800">vardhan reddy</p>
+                                <p class="text-gray-500 text-sm">Happy Customer</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="bg-white rounded-xl p-8 card-shadow hover:shadow-xl transition duration-300">
+                        <p class="text-gray-700 text-lg italic mb-6">"Easy onboarding and profile setup.AI-powered symptom checker offers preliminary guidance before booking.Users can search doctors by specialty, ratings, availability, and language preference
+"</p>
+                        <div class="flex items-center">
+                            <img src="https://placehold.co/60x60/C8E6C9/000000?text=MS" alt="Patient Avatar" class="w-16 h-16 rounded-full mr-4 object-cover">
+                            <div>
+                                <p class="font-semibold text-gray-800">M.Sanketh</p>
+                                <p class="text-gray-500 text-sm">IIT Kharagpur</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                   <div class="bg-white rounded-xl p-8 card-shadow hover:shadow-xl transition duration-300">
+                        <p class="text-gray-700 text-lg italic mb-6">"I recently explored Uphill Health, and I must say, it’s a truly impressive and user-friendly platform that brings together a wide range of essential healthcare services in one place. The website is clean, easy to navigate, and clearly designed with user convenience in mind. It offers  people to book doctor appointment
+Online , download health reports and also doctors prescription, the plus point is using of  ai future in this. It also contains online consultation of doctors which is an excellent feature for now-a-days fast moving life.In Overall, the uphill health is an excellent website to connect people and doctors at a fast possible way and also user friendly"</p>
+                        <div class="flex items-center">
+                            <img src="https://placehold.co/60x60/FFCDD2/000000?text=GH" alt="Patient Avatar" class="w-16 h-16 rounded-full mr-4 object-cover">
+                            <div>
+                                <p class="font-semibold text-gray-800">G.Harsha</p>
+                                <p class="text-gray-500 text-sm">Happy Customer IIT BHU</p>
+                            </div>
+                        </div>
+                    </div>
+
+        </section>
+
+        <!-- Call to Action Section -->
+        <section class="bg-teal-600 text-white py-16 px-4 sm:px-6 lg:px-8 text-center">
+            <div class="container mx-auto max-w-3xl">
+                <h2 class="text-4xl font-bold mb-6">Ready to Experience Better Healthcare?</h2>
+                <p class="text-xl mb-10 opacity-90">Join Uphill Health today and take control of your well-being.</p>
+                <a href="{{ url_for('signup') }}" class="inline-block bg-white text-teal-600 hover:bg-gray-100 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transform hover:scale-105 transition duration-300">
+                    Get Started Now
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 py-10 px-4 sm:px-6 lg:px-8">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Company Info -->
+            <div>
+                <h3 class="text-2xl font-bold text-white mb-4">Uphill Health</h3>
+                <p class="text-gray-400">Your trusted partner for accessible and convenient healthcare services.</p>
+            </div>
+
+            <!-- Quick Links -->
+            <div>
+                <h3 class="text-xl font-semibold text-white mb-4">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-teal-400 transition duration-300">Home</a></li>
+                    <li><a href="#services" class="hover:text-teal-400 transition duration-300">Services</a></li>
+                    <li><a href="#about" class="hover:text-teal-400 transition duration-300">About Us</a></li>
+                    <li><a href="#contact" class="hover:text-teal-400 transition duration-300">Contact</a></li>
+                    <li><a href="{{ url_for('login_aboutus') }}" class="hover:text-teal-400 transition duration-300">Management About Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Info -->
+            <div id="contact">
+                <h3 class="text-xl font-semibold text-white mb-4">Contact Us</h3>
+                <p class="flex items-center mb-2"><i class="fas fa-map-marker-alt mr-2 text-teal-400"></i> 12/3/28,Siva nagar,Hindupur 56789</p>
+                <p class="flex items-center mb-2"><i class="fas fa-phone mr-2 text-teal-400"></i>+91 2005689123</p>
+                <p class="flex items-center"><i class="fas fa-envelope mr-2 text-teal-400"></i> Uphillhealthbots@gmail.com</p>
+            </div>
+        </div>
+        <div class="text-center border-t border-gray-700 pt-8 mt-8">
+            <p>&copy; {{ datetime.now().year if datetime else '2024' }} Uphill Health. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.style.display = mobileMenu.style.display === 'none' ? 'block' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>

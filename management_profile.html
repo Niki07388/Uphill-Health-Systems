@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Management Profile - Uphill Health</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #2c3e50; /* Dark background */
+            color: #ecf0f1; /* Light text */
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: #1a242f; /* Even darker header */
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header .logo {
+            font-size: 2em;
+            color: #1abc9c; /* Teal for logo */
+            margin-left: 20px;
+        }
+        header nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            margin-right: 20px;
+        }
+        header nav ul li {
+            margin-left: 20px;
+        }
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        header nav ul li a:hover {
+            background-color: #1abc9c; /* Teal on hover */
+            color: #1a242f; /* Dark text on hover */
+        }
+        .content-section {
+            background-color: #34495e; /* Darker content background */
+            margin-top: 20px;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .content-section h2 {
+            color: #ecf0f1; /* Light text for headings */
+            font-size: 2em;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .content-section h3 {
+            color: #3498db; /* Blue for subheadings */
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #557999; /* Slightly lighter border */
+            padding-bottom: 10px;
+        }
+        .table-responsive {
+            overflow-x: auto;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background-color: #46627f; /* Slightly lighter table background */
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        table th, table td {
+            padding: 12px 15px;
+            border: 1px solid #5c7f9e; /* Adjusted border color */
+            text-align: left;
+            color: #ecf0f1; /* Light text for table content */
+        }
+        table th {
+            background-color: #3d566e; /* Darker header for tables */
+            color: #ecf0f1;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+        table tbody tr:nth-child(even) {
+            background-color: #4a6582; /* Alternate row color */
+        }
+        table tbody tr:hover {
+            background-color: #5d7a97; /* Lighter blue on hover */
+        }
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-size: 1em;
+            color: #fff; /* White text for alerts */
+        }
+        .alert-success { background-color: #27ae60; border-color: #229a53; } /* Green */
+        .alert-danger { background-color: #e74c3c; border-color: #d62c1a; } /* Red */
+        .alert-warning { background-color: #f39c12; border-color: #e08e0b; } /* Orange */
+        .alert-info { background-color: #3498db; border-color: #217dbb; } /* Blue */
+
+        /* Styles for profile content */
+        .profile-info {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            align-items: center;
+            margin-top: 30px;
+        }
+        .profile-info strong {
+            color: #1abc9c;
+            font-size: 1.1em;
+        }
+        .profile-info p {
+            margin: 0;
+            font-size: 1.1em;
+        }
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px auto;
+            border: 3px solid #1abc9c;
+        }
+
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 40px;
+            background-color: #1a242f; /* Dark footer */
+            color: #f4f7f6;
+            font-size: 0.9em;
+        }
+        footer a {
+            color: #1abc9c; /* Teal for footer links */
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        td a {
+            color: #1abc9c; /* Teal for "Join Call" link */
+            text-decoration: none;
+        }
+        td a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">Uphill Health Management</h1>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('Mangement_aboutus') }}">About Us</a></li>
+                    <li><a href="{{ url_for('management_dashboard') }}">User Activities</a></li>
+                    <li><a href="{{ url_for('management_profile') }}">Profile</a></li> {# Added link to profile #}
+                    <li>Users</li>
+                    <li><a href="{{ url_for('management_logout') }}">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="content-section">
+            <h2>Management Profile</h2>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flash-messages">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <div style="text-align: center; margin-bottom: 30px;">
+                <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Profile Avatar" class="profile-avatar">
+                <h3>{{ manager_username | default('Manager Name') }}</h3>
+                <p style="color: #bbb;">{{ manager_role | default('Administrator') }}</p>
+            </div>
+
+            <h3>Profile Details</h3>
+            <div class="profile-info">
+                <strong>Username:</strong> <p>{{ manager_username | default('Not available') }}</p>
+                <strong>Email:</strong> <p>{{ manager_email | default('manager@uphillhealth.com') }}</p>
+                <strong>Last Login:</strong> <p>{{ manager_last_login | default('N/A') }}</p>
+                <strong>Total Logins:</strong> <p>{{ manager_total_logins | default('N/A') }}</p>
+                {# Add more profile details as needed #}
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; {{ datetime.now().year }} Uphill Health. Management Portal.</p>
+            <p>Managed and Developed by PRANIKOV</p>
+        </div>
+    </footer>
+</body>
+</html>

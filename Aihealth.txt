@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM-Based Health Analysis | Uphill Health Bots</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --light-bg: #f5f7fa;
+            --dark-bg: #1a1a2e;
+            --light-text: #2c3e50;
+            --dark-text: #e0e0e0;
+        }
+        body {
+            font-family: 'Inter', sans-serif; /* Changed to Inter as per guidelines */
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            transition: background 0.3s, color 0.3s;
+            overflow-x: hidden;
+            color: var(--light-text);
+        }
+        .dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: var(--dark-text);
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(90deg, #2c3e50, #3498db);
+            color: white;
+            padding: 15px 30px;
+            margin-left: 280px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: calc(100% - 280px);
+            z-index: 1000;
+            border-bottom-left-radius: 15px; /* Rounded corners */
+        }
+        .navbar h2 {
+            font-size: 24px;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        .profile-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 15px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            border: 2px solid white; /* Added border for profile pic */
+        }
+        .profile-icon:hover {
+            transform: scale(1.1);
+        }
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            min-width: 200px;
+            z-index: 1000;
+        }
+        .dark-mode .profile-dropdown {
+            background: #2c3e50;
+            color: var(--dark-text);
+        }
+        .profile-dropdown.active {
+            display: block;
+        }
+        .profile-dropdown p {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            color: var(--light-text);
+        }
+        .dark-mode .profile-dropdown p {
+            color: var(--dark-text);
+        }
+        .logout-btn {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        .dark-mode .logout-btn {
+            color: white;
+        }
+        .logout-btn:hover {
+            background: linear-gradient(45deg, #c0392b, #a93226);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+        .container {
+            text-align: left;
+            margin: 100px 30px 50px 280px;
+            max-width: 900px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            transition: background 0.3s, box-shadow 0.3s, color 0.3s;
+        }
+        .dark-mode .container {
+            background: rgba(30, 30, 30, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            color: var(--dark-text);
+        }
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: linear-gradient(180deg, #2c3e50, #34495e);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            color: white;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+            transition: width 0.3s;
+            border-top-right-radius: 15px; /* Rounded corners */
+            border-bottom-right-radius: 15px; /* Rounded corners */
+        }
+        .sidebar h2 {
+            font-size: 22px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #ecf0f1;
+        }
+        .sidebar a {
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 12px 15px;
+            margin: 10px 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            transition: background 0.3s, color 0.3s;
+        }
+        .sidebar a:hover {
+            background: #e74c3c;
+            color: white;
+            transform: translateX(5px); /* Subtle hover effect */
+        }
+        .toggle-btn {
+            cursor: pointer;
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #8e44ad, #9b59b6);
+            border: none;
+            color: white;
+            border-radius: 25px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .toggle-btn:hover {
+            background: linear-gradient(45deg, #9b59b6, #7f349a);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(142, 68, 173, 0.4);
+        }
+        .toggle-btn span {
+            margin-left: 8px;
+            font-size: 18px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: var(--light-text); /* Use CSS variable */
+        }
+        .dark-mode .form-group label {
+            color: var(--dark-text); /* Use CSS variable */
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px; /* Increased padding */
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+            box-sizing: border-box; /* Include padding in width */
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3); /* Focus glow */
+        }
+        .dark-mode .form-group input, .dark-mode .form-group textarea {
+            background: #2c3e50;
+            color: #e0e0e0;
+            border-color: #34495e;
+        }
+        .submit-btn {
+            padding: 12px 25px;
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            border: none;
+            color: white;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block; /* Make button full width */
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(46, 204, 113, 0.2);
+        }
+        .submit-btn:hover {
+            background: linear-gradient(45deg, #27ae60, #219653);
+            transform: scale(1.02); /* Slight scale on hover */
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
+        }
+        #result {
+            margin-top: 30px;
+            padding: 20px;
+            background: #e9f5ff; /* Light blue background for results */
+            border: 1px solid #cceeff;
+            border-radius: 10px;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #2c3e50;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: background 0.3s, border-color 0.3s, color 0.3s;
+        }
+        .dark-mode #result {
+            background: #2c3e50;
+            border-color: #34495e;
+            color: var(--dark-text);
+        }
+        #result strong {
+            color: #3498db;
+        }
+        .dark-mode #result strong {
+            color: #8be0ff;
+        }
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+            display: none; /* Hidden by default */
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                box-shadow: none;
+                border-radius: 0;
+            }
+            .navbar {
+                margin-left: 0;
+                width: 100%;
+                position: relative;
+                border-radius: 0;
+            }
+            .container {
+                margin: 20px;
+                max-width: none;
+            }
+        }
+        @media (max-width: 480px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .navbar h2 {
+                margin-bottom: 10px;
+            }
+            .profile {
+                width: 100%;
+                justify-content: space-between;
+                margin-top: 10px;
+            }
+            .profile-dropdown {
+                width: calc(100% - 30px); /* Adjust for padding */
+                left: 15px; /* Center dropdown */
+                right: 15px;
+                top: 70px; /* Adjust dropdown position */
+            }
+            .toggle-btn {
+                width: 100%;
+                justify-content: center;
+                margin-top: 10px;
+            }
+            .form-group input, .form-group textarea, .submit-btn {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Uphill Health</h2>
+        <a href="/dashboard"><i class="fas fa-home"></i> Dashboard</a>
+        <a href="/profile"><i class="fas fa-user-circle"></i> Profile</a>
+        <a href="/settings"><i class="fas fa-cogs"></i> Settings</a>
+        <a href="/reports"><i class="fas fa-file-alt"></i> Reports</a>
+        <a href="/services"><i class="fas fa-briefcase-medical"></i> Services</a>
+        <a href="/ai-risk-analysis"><i class="fas fa-robot"></i> AI Health Analysis</a>
+        <a href="/ecg-monitoring"><i class="fas fa-heartbeat"></i> ECG Monitoring</a>
+        <a href="/video-consultation"><i class="fas fa-video"></i> Video Consultation</a>
+        <a href="/appointment-booking"><i class="fas fa-calendar-check"></i> Appointment Booking</a>
+        <a href="/data-security"><i class="fas fa-shield-alt"></i> Data Security</a>
+    </div>
+
+    <div class="navbar">
+        <h2>LLM-Based Health Analysis</h2>
+        <button class="toggle-btn" onclick="toggleDarkMode()">
+            Dark Mode
+            <span id="darkIcon">🌙</span>
+        </button>
+        <div class="profile">
+            <span>Welcome, {{ username }}</span>
+            <img class="profile-icon" src="{{ '/static/uploads/' + profile_pic if profile_pic != 'default.jpg' else 'https://placehold.co/40x40/cccccc/333333?text=User' }}" alt="Profile Photo" onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/333333?text=User';" onclick="toggleProfileDropdown()">
+            <div class="profile-dropdown" id="profileDropdown">
+                <p><strong>Username:</strong> {{ username }}</p>
+                <p><strong>Email:</strong> {{ email | default('Not provided') }}</p>
+                <button class="logout-btn" onclick="window.location.href='{{ url_for('logout') }}'">Log Out</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 style="color: var(--primary-color); font-size: 32px; text-align: center;">LLM-Based Health Analysis</h1>
+        <p style="font-size: 18px; color: #7f8c8d; text-align: center;">Upload your health reports (PDF, Image, DOCX, TXT) and describe symptoms for AI-driven disease analysis and medicine suggestions.</p>
+        
+        <div class="form-group">
+            <label for="health-report"><i class="fas fa-upload"></i> Upload Health Report</label>
+            <input type="file" id="health-report" name="health-report" accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.gif,.bmp" required>
+        </div>
+        <div class="form-group">
+            <label for="symptoms"><i class="fas fa-notes-medical"></i> Describe Symptoms</label>
+            <textarea id="symptoms" name="symptoms" rows="7" placeholder="e.g., persistent cough, fatigue for two weeks, mild fever, body aches, no appetite." required></textarea>
+        </div>
+        <button class="submit-btn" onclick="analyzeHealth()"><i class="fas fa-flask"></i> Analyze Health Data</button>
+        
+        <div class="loading-spinner" id="loadingSpinner"></div>
+        <div id="result" style="margin-top: 20px; font-size: 16px; color: var(--light-text);"></div>
+    </div>
+
+    <script>
+        // Set initial dark mode based on user preference or local storage
+        document.addEventListener('DOMContentLoaded', () => {
+            const isDarkMode = localStorage.getItem('darkMode') === 'true';
+            if (isDarkMode) {
+                document.body.classList.add('dark-mode');
+                document.getElementById('darkIcon').textContent = '☀';
+            }
+        });
+
+        function toggleDarkMode() {
+            const body = document.body;
+            const icon = document.getElementById('darkIcon');
+            const isCurrentlyDarkMode = body.classList.toggle("dark-mode");
+            icon.textContent = isCurrentlyDarkMode ? '☀' : '🌙';
+            localStorage.setItem('darkMode', isCurrentlyDarkMode); // Save preference
+        }
+
+        function toggleProfileDropdown() {
+            const dropdown = document.getElementById('profileDropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        // Close dropdown if clicked outside
+        window.onclick = function(event) {
+            if (!event.target.matches('.profile-icon') && !event.target.matches('.profile span')) {
+                const dropdowns = document.getElementsByClassName("profile-dropdown");
+                for (let i = 0; i < dropdowns.length; i++) {
+                    const openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('active')) {
+                        openDropdown.classList.remove('active');
+                    }
+                }
+            }
+        }
+
+        async function analyzeHealth() {
+            const fileInput = document.getElementById('health-report');
+            const symptoms = document.getElementById('symptoms').value;
+            const resultDiv = document.getElementById('result');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+
+            // Clear previous results and show loading spinner
+            resultDiv.innerHTML = '';
+            loadingSpinner.style.display = 'block';
+
+            if (!fileInput.files.length || !symptoms.trim()) { // Added trim() for symptoms
+                resultDiv.innerHTML = '<span style="color: red;">Please upload a health report and describe your symptoms.</span>';
+                loadingSpinner.style.display = 'none'; // Hide spinner on validation error
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('health-report', fileInput.files[0]);
+            formData.append('symptoms', symptoms);
+
+            try {
+                const response = await fetch('/api/analyze-health', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Failed to analyze health data.');
+                }
+
+                // Display results using template literals
+                resultDiv.innerHTML = `
+                    <p><strong>Analysis Results:</strong></p>
+                    <p><strong>File Uploaded:</strong> ${data.filename}</p>
+                    <p><strong>Symptoms Analyzed:</strong> ${data.symptoms}</p>
+                    <p><strong>Possible Condition:</strong> ${data.condition}</p>
+                    <p><strong>Medicine Suggestions:</strong> ${data.suggestions}</p>
+                    <p style="font-style: italic; color: #e74c3c;"><strong>Disclaimer:</strong> ${data.disclaimer}</p>
+                `;
+            } catch (error) {
+                // Corrected string interpolation for error message
+                resultDiv.innerHTML = `<span style="color: red;">Error: ${error.message}</span>`;
+            } finally {
+                loadingSpinner.style.display = 'none'; // Hide spinner after request completes
+            }
+        }
+    </script>
+</body>
+</html>

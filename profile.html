@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Uphill Health</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">Uphill Health</h1>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('about_us') }}">About us</a></li>
+                    <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                    <li><a href="{{ url_for('services') }}">Services</a></li>
+                    <li><a href="{{ url_for('reports') }}">Reports</a></li>
+                    <li><a href="{{ url_for('profile') }}" class="active">Profile</a></li>
+                    <li><a href="{{ url_for('settings') }}">Settings</a></li>
+                    {% if 'user' in session %}
+                        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    {% else %}
+                        <li><a href="{{ url_for('login') }}">Login</a></li>
+                        <li><a href="{{ url_for('signup') }}">Signup</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="content-section">
+        <div class="form-container">
+            <h2>Your Profile</h2>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flash-messages">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <div class="profile-pic-container">
+                <img src="{{ url_for('static', filename='uploads/' + profile_pic) }}" alt="Profile Picture" class="profile-pic-preview">
+            </div>
+
+            <form action="{{ url_for('profile') }}" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" value="{{ username }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" value="{{ email }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="profile_pic">Change Profile Picture:</label>
+                    <input type="file" id="profile_pic" name="profile_pic" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label for="password">New Password (leave blank to keep current):</label>
+                    <input type="password" id="password" name="password">
+                </div>
+                <button type="submit" class="btn btn-primary">Update Profile</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Uphill Health. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="{{ url_for('data_security') }}">Data Security & Privacy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

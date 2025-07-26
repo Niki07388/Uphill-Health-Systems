@@ -1,0 +1,787 @@
+/* General Body and Container */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+/* Header */
+header {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 15px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    margin: 0;
+    font-size: 1.8em;
+    font-weight: 600;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 25px;
+}
+
+nav ul li a {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.05em;
+    padding: 5px 0;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+    color: #5cdb95; /* A bright green for hover/active */
+    border-bottom: 2px solid #5cdb95;
+}
+
+/* Hero Section (for Home.html) */
+.hero {
+    background: linear-gradient(to right, rgba(44, 62, 80, 0.9), rgba(60, 179, 113, 0.7)), url('images/hero_background.jpg') no-repeat center center/cover; /* Ensure you have a hero_background.jpg in static/images */
+    color: #fff;
+    text-align: center;
+    padding: 80px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+}
+
+.hero-content {
+    max-width: 800px;
+}
+
+.hero-logo {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
+}
+
+.hero h2 {
+    font-size: 3em;
+    margin-bottom: 15px;
+    color: #fff; /* Override general h2 color */
+    border-bottom: none; /* Override general h2 border */
+}
+
+.hero p {
+    font-size: 1.3em;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.hero-btn {
+    padding: 15px 35px;
+    font-size: 1.2em;
+}
+
+/* Features Section (for Home.html) */
+.features {
+    padding: 50px 0;
+    background-color: #f0fdf2; /* Light green tint */
+}
+
+.features h3 {
+    text-align: center;
+    font-size: 2em;
+    color: #2c3e50;
+    margin-bottom: 40px;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.feature-card {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    text-align: center;
+    border-top: 5px solid #5cdb95;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+.feature-icon {
+    font-size: 3.8em;
+    color: #5cdb95;
+    margin-bottom: 20px;
+}
+
+.feature-card h4 {
+    font-size: 1.5em;
+    color: #34495e;
+    margin-bottom: 10px;
+}
+
+.feature-card p {
+    color: #666;
+    font-size: 1em;
+}
+
+
+/* Main Content Sections */
+.content-section {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    margin-top: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+h2 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 2.2em;
+    border-bottom: 2px solid #5cdb95;
+    padding-bottom: 10px;
+    display: inline-block;
+    width: 100%; /* For the border to span */
+}
+
+h3 {
+    color: #34495e;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 1.6em;
+}
+
+.intro-text {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #666;
+    font-size: 1.1em;
+}
+
+/* Form Styles */
+.form-container {
+    background-color: #fdfdfd;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    max-width: 600px;
+    margin: 30px auto;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group input[type="date"],
+.form-group input[type="time"],
+.form-group input[type="file"],
+.form-group input[type="number"],
+.form-group select,
+.form-group textarea {
+    width: calc(100% - 20px);
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box; /* Include padding in width */
+}
+
+.form-group input[type="file"] {
+    padding: 8px; /* Adjust for file input */
+}
+
+.form-group input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.error-message {
+    color: #e74c3c;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.switch-form {
+    text-align: center;
+    margin-top: 20px;
+    color: #555;
+}
+
+.switch-form a {
+    color: #5cdb95;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.switch-form a:hover {
+    text-decoration: underline;
+}
+
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border: none;
+    text-align: center;
+    font-size: 1em;
+}
+
+.btn-primary {
+    background-color: #5cdb95;
+    color: #2c3e50;
+}
+
+.btn-primary:hover {
+    background-color: #4ac380;
+}
+
+.btn-secondary {
+    background-color: #95a5a6;
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background-color: #7f8c8d;
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+.btn-success {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    color: #fff;
+}
+
+.btn-info:hover {
+    background-color: #138496;
+}
+
+/* Small buttons */
+.btn-sm {
+    padding: 8px 15px;
+    font-size: 0.9em;
+}
+
+/* Dashboard Specific Styles */
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    background-color: #e8f5e9; /* Light green background */
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.profile-summary {
+    display: flex;
+    align-items: center;
+}
+
+.dashboard-profile-pic {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+    border: 3px solid #5cdb95;
+}
+
+.profile-summary h2 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.8em;
+    border-bottom: none; /* Override general h2 border */
+}
+
+.profile-summary p {
+    margin: 5px 0 0;
+    color: #555;
+    font-size: 1.1em;
+}
+
+.dashboard-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.section-card {
+    background-color: #fdfdfd;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    border-left: 5px solid #5cdb95; /* Accent border */
+}
+
+.section-card h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #34495e;
+    font-size: 1.5em;
+}
+
+.appointment-list, .consultation-list, .prescription-list, .order-list, .list-group {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.appointment-list li, .consultation-list li, .prescription-list li, .order-list li, .list-group-item {
+    background-color: #ecf0f1;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: relative; /* For the cancel button positioning */
+}
+
+.cancel-btn {
+    align-self: flex-end; /* Align button to the right */
+    margin-top: 10px;
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+}
+
+/* Service Page Grid */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.service-card {
+    background-color: #fdfdfd;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    text-align: center;
+    border-bottom: 4px solid #5cdb95;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.service-icon {
+    font-size: 3.5em;
+    color: #5cdb95;
+    margin-bottom: 15px;
+}
+
+.service-card h3 {
+    font-size: 1.4em;
+    color: #34495e;
+    margin-bottom: 10px;
+}
+
+.service-card p {
+    color: #666;
+    margin-bottom: 20px;
+    font-size: 0.95em;
+}
+
+/* Reports Page */
+.report-options .btn {
+    margin-right: 15px;
+    margin-bottom: 15px;
+}
+
+/* Flash Messages */
+.flash-messages {
+    margin-bottom: 20px;
+}
+
+.alert {
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-size: 0.95em;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+/* Profile Page */
+.profile-details {
+    margin-bottom: 30px;
+}
+
+.profile-details p {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+.profile-pic-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-pic-preview {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #5cdb95;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* NEW: Medicine List */
+.medicine-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.medicine-card {
+    background-color: #fdfdfd;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    text-align: center;
+    border: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Pushes button to bottom */
+}
+
+.medicine-card .medicine-img {
+    max-width: 100%;
+    height: 150px; /* Fixed height for consistency */
+    object-fit: contain; /* Ensures entire image is visible */
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.medicine-card h3 {
+    margin-top: 0;
+    font-size: 1.3em;
+    color: #34495e;
+    margin-bottom: 10px;
+}
+
+.medicine-card p {
+    margin-bottom: 8px;
+    color: #666;
+    font-size: 0.95em;
+}
+
+.medicine-card .description {
+    font-size: 0.85em;
+    color: #777;
+    margin-bottom: 15px;
+    flex-grow: 1; /* Allows description to take up available space */
+}
+
+.medicine-card .order-form {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+}
+
+.medicine-card .order-form label {
+    margin-bottom: 0; /* Override default label margin */
+    font-weight: normal;
+}
+
+.medicine-card .order-form input[type="number"] {
+    width: 70px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+}
+
+/* NEW: Order History */
+.order-history-list {
+    margin-top: 30px;
+}
+
+.order-card {
+    background-color: #fdfdfd;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    border-left: 5px solid #28a745; /* Green accent for orders */
+    margin-bottom: 20px;
+}
+
+.order-card h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #28a745;
+    font-size: 1.5em;
+}
+
+.order-card p {
+    margin-bottom: 8px;
+    font-size: 1em;
+    color: #444;
+}
+
+.order-card strong {
+    color: #333;
+}
+
+.ordered-items-list {
+    list-style: disc;
+    margin-left: 20px;
+    padding: 0;
+    margin-top: 15px;
+    border-top: 1px dashed #eee;
+    padding-top: 15px;
+}
+
+.ordered-items-list li {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    font-size: 0.95em;
+    color: #555;
+}
+
+/* Status Badges */
+.status-pending {
+    color: #e67e22; /* Orange */
+    font-weight: bold;
+}
+
+.status-processing {
+    color: #3498db; /* Blue */
+    font-weight: bold;
+}
+
+.status-shipped {
+    color: #2ecc71; /* Green */
+    font-weight: bold;
+}
+
+.status-delivered {
+    color: #27ae60; /* Darker Green */
+    font-weight: bold;
+}
+
+.status-cancelled {
+    color: #e74c3c; /* Red */
+    font-weight: bold;
+}
+
+.status-pending-review { /* For prescriptions */
+    color: #f39c12; /* Yellowish orange */
+    font-weight: bold;
+}
+
+.status-approved { /* For prescriptions */
+    color: #28a745; /* Green */
+    font-weight: bold;
+}
+
+.status-rejected { /* For prescriptions */
+    color: #dc3545; /* Red */
+    font-weight: bold;
+}
+
+.status-filled { /* For prescriptions */
+    color: #007bff; /* Blue */
+    font-weight: bold;
+}
+
+
+/* Footer */
+footer {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+}
+
+.footer-links a {
+    color: #5cdb95;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #ecf0f1;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    header .container {
+        flex-direction: column;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 15px;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+    }
+
+    .dashboard-sections, .services-grid, .medicine-list, .info-section, .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-container {
+        padding: 20px;
+        margin: 20px auto;
+    }
+
+    .content-section {
+        padding: 20px;
+    }
+
+    .hero h2 {
+        font-size: 2.2em;
+    }
+
+    .hero p {
+        font-size: 1em;
+    }
+
+    .hero-btn {
+        padding: 10px 25px;
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 1.5em;
+    }
+
+    h2 {
+        font-size: 1.8em;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-summary {
+        flex-direction: column;
+    }
+
+    .dashboard-profile-pic {
+        margin-bottom: 15px;
+        margin-right: 0;
+    }
+
+    .feature-icon, .service-icon, .info-icon {
+        font-size: 3em;
+    }
+
+    .feature-card h4, .service-card h3, .info-card h3 {
+        font-size: 1.2em;
+    }
+}

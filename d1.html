@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Uphill Health Bots</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --light-bg: #f5f7fa;
+            --dark-bg: #1a1a2e;
+            --light-text: #2c3e50;
+            --dark-text: #e0e0e0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            transition: background 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+        .dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(90deg, #2c3e50, #3498db);
+            color: white;
+            padding: 15px 30px;
+            margin-left: 280px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: calc(100% - 280px);
+            z-index: 1000;
+        }
+        .navbar h2 {
+            font-size: 24px;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        .profile-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 15px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .profile-icon:hover {
+            transform: scale(1.1);
+        }
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            min-width: 200px;
+            z-index: 1000;
+        }
+        .dark-mode .profile-dropdown {
+            background: #2c3e50;
+            color: var(--dark-text);
+        }
+        .profile-dropdown.active {
+            display: block;
+        }
+        .profile-dropdown p {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            color: var(--light-text);
+        }
+        .dark-mode .profile-dropdown p {
+            color: var(--dark-text);
+        }
+        .container {
+            margin: 100px 30px 50px 280px;
+            max-width: 1200px;
+            padding: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .dark-mode .container {
+            color: #e0e0e0;
+        }
+        .window {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        .dark-mode .window {
+            background: rgba(30, 30, 30, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: linear-gradient(180deg, #2c3e50, #34495e);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            color: white;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+            transition: width 0.3s;
+        }
+        .sidebar h2 {
+            font-size: 22px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #ecf0f1;
+        }
+        .sidebar a {
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 12px 15px;
+            margin: 10px 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            transition: background 0.3s, color 0.3s;
+        }
+        .sidebar a:hover {
+            background: #e74c3c;
+            color: white;
+        }
+        .chart-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 20px auto;
+        }
+        .logout-btn {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        .dark-mode .logout-btn {
+            color: white;
+        }
+        .logout-btn:hover {
+            background: linear-gradient(45deg, #c0392b, #a93226);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+        .toggle-btn {
+            cursor: pointer;
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #8e44ad, #9b59b6);
+            border: none;
+            color: white;
+            border-radius: 25px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .toggle-btn:hover {
+            background: linear-gradient(45deg, #9b59b6, #7f349a);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(142, 68, 173, 0.4);
+        }
+        .toggle-btn span {
+            margin-left: 8px;
+            font-size: 18px;
+        }
+        .cancel-btn {
+            padding: 5px 10px;
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s;
+            margin-left: 10px;
+        }
+        .cancel-btn:hover {
+            background: linear-gradient(45deg, #c0392b, #a93226);
+            transform: scale(1.05);
+        }
+        .dark-mode .cancel-btn {
+            background: linear-gradient(45deg, #c0392b, #a93226);
+        }
+        .dark-mode .cancel-btn:hover {
+            background: linear-gradient(45deg, #a93226, #922b21);
+        }
+        .appointment-item, .consultation-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Menu</h2>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/profile">Profile</a>
+        <a href="/settings">Settings</a>
+        <a href="/reports">Reports</a>
+        <a href="/services">Services</a>
+    </div>
+    
+    <div class="navbar">
+        <h2>Uphill Health Bots</h2>
+        <button class="toggle-btn" onclick="toggleDarkMode()">
+            Dark Mode
+            <span id="darkIcon">🌙</span>
+        </button>
+        <div class="profile">
+            <span>Welcome, {{ username }}</span>
+            <img class="profile-icon" src="{{ '/static/uploads/' + profile_pic if profile_pic != 'default.jpg' else 'https://via.placeholder.com/40' }}" alt="Profile Photo" onclick="toggleProfileDropdown()">
+            <div class="profile-dropdown" id="profileDropdown">
+                <p>Email: {{ email | default('Not provided') }}</p>
+                <button class="logout-btn" onclick="window.location.href='{{ url_for('logout') }}'">Log Out</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="window">
+            <h3 style="color: #3498db; font-size: 24px;">Daily Medical Quote</h3>
+            <p id="dailyQuote" style="font-size: 16px; color: #7f8c8d;"></p>
+        </div>
+        <div class="window">
+            <h3 style="color: #3498db; font-size: 24px;">Uphill Health Status</h3>
+            <p style="font-size: 16px; color: #7f8c8d;">Days Active: <span id="usageDays">0</span></p>
+            <p style="font-size: 16px; color: #7f8c8d;">System Status: <span id="systemStatus">Operational</span></p>
+        </div>
+        <div class="window">
+            <h3 style="color: #3498db; font-size: 24px;">Quick Review</h3>
+            <div style="text-align: left;">
+                <p><strong>AI Report Analysis History:</strong> <span id="reportCount">0</span> reports</p>
+                <p><strong>Uploads:</strong> <span id="uploadCount">0</span> files</p>
+                <p><strong>Diseases Detected:</strong> <span id="diseaseCount">0</span> conditions</p>
+                <p><strong>Medication Recommendations:</strong></p>
+                <ul id="medicationList">
+                    <li id="adultMeds">No recommendations</li>
+                    <li id="seniorMeds">No recommendations</li>
+                    <li id="childMeds">No recommendations</li>
+                </ul>
+                <div class="chart-container">
+                    <canvas id="reportChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="window">
+            <h3 style="color: #3498db; font-size: 24px;">Appointment & Meeting Status</h3>
+            <div style="font-size: 16px; color: #7f8c8d;">
+                {% if appointments or video_consultations %}
+                    <div style="margin-bottom: 15px;">
+                        <h4 style="color: #2c3e50; margin-bottom: 5px;">Appointments:</h4>
+                        {% if appointments %}
+                            {% for appt in appointments[:3] %}
+                                <div class="appointment-item">
+                                    <p>- {{ appt.doctor }} at {{ appt.location }} on {{ appt.date }} at {{ appt.time }}</p>
+                                    <button class="cancel-btn" onclick="cancelAppointment({{ appt.id }})">Cancel</button>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p>No appointments scheduled</p>
+                        {% endif %}
+                    </div>
+                    
+                    <div>
+                        <h4 style="color: #2c3e50; margin-bottom: 5px;">Video Consultations:</h4>
+                        {% if video_consultations %}
+                            {% for consult in video_consultations[:3] %}
+                                <div class="consultation-item">
+                                    <p>- {{ consult.doctor }} (Video) on {{ consult.date }} at {{ consult.time }}</p>
+                                    <button class="cancel-btn" onclick="cancelConsultation({{ consult.id }})">Cancel</button>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p>No video consultations scheduled</p>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <p>No bookings today</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="window" style="flex: 1 1 100%; max-width: 100%;">
+            <h3 style="color: #3498db; font-size: 24px;">Reminders & Medicine Tracking Status</h3>
+            <p style="font-size: 16px; color: #7f8c8d;"><strong>Daily Medication Reminders:</strong> <span id="medicationReminder">No reminders today</span></p>
+        </div>
+    </div>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+            const icon = document.getElementById('darkIcon');
+            icon.textContent = document.body.classList.contains("dark-mode") ? '☀' : '🌙';
+        }
+
+        function toggleProfileDropdown() {
+            const dropdown = document.getElementById('profileDropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        async function cancelAppointment(appointmentId) {
+            if (confirm('Are you sure you want to cancel this appointment?')) {
+                try {
+                    const response = await fetch(`/cancel-appointment/${appointmentId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    const result = await response.json();
+                    if (result.success) {
+                        alert('Appointment cancelled successfully');
+                        location.reload();
+                    } else {
+                        alert('Failed to cancel appointment: ' + result.message);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Failed to cancel appointment');
+                }
+            }
+        }
+
+        async function cancelConsultation(consultationId) {
+            if (confirm('Are you sure you want to cancel this video consultation?')) {
+                try {
+                    const response = await fetch(`/cancel-consultation/${consultationId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    const result = await response.json();
+                    if (result.success) {
+                        alert('Consultation cancelled successfully');
+                        location.reload();
+                    } else {
+                        alert('Failed to cancel consultation: ' + result.message);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Failed to cancel consultation');
+                }
+            }
+        }
+
+        // Static data to simulate backend responses
+        const dashboardData = {
+            dailyQuote: "Advancements in AI diagnostics improve early detection rates for chronic diseases.",
+            usageDays: {{ ( ( 'now'|datetime - user.registration_date ).days ) if user else 0 }},
+            systemStatus: "Operational",
+            quickReview: {
+                reports: 12,
+                uploads: 25,
+                diseases: 3,
+                medRecommendations: {
+                    adult: "Multivitamin daily, consult for specific conditions",
+                    senior: "Calcium 1200mg, Vitamin D 800 IU daily",
+                    child: "Pediatric multivitamin, dose per age/weight"
+                }
+            },
+            medicationReminder: "Take Metformin 500mg at 8 PM",
+            reportTrends: [
+                { date: "2025-06-21", reports: 5 },
+                { date: "2025-06-20", reports: 3 },
+                { date: "2025-06-19", reports: 7 },
+                { date: "2025-06-18", reports: 4 },
+                { date: "2025-06-17", reports: 6 }
+            ]
+        };
+
+        // Populate dashboard
+        function populateDashboard() {
+            try {
+                document.getElementById('dailyQuote').textContent = dashboardData.dailyQuote;
+                document.getElementById('usageDays').textContent = dashboardData.usageDays;
+                document.getElementById('systemStatus').textContent = dashboardData.systemStatus;
+                document.getElementById('reportCount').textContent = dashboardData.quickReview.reports;
+                document.getElementById('uploadCount').textContent = dashboardData.quickReview.uploads;
+                document.getElementById('diseaseCount').textContent = dashboardData.quickReview.diseases;
+                document.getElementById('adultMeds').textContent = dashboardData.quickReview.medRecommendations.adult;
+                document.getElementById('seniorMeds').textContent = dashboardData.quickReview.medRecommendations.senior;
+                document.getElementById('childMeds').textContent = dashboardData.quickReview.medRecommendations.child;
+                document.getElementById('medicationReminder').textContent = dashboardData.medicationReminder;
+
+                const reportData = {
+                    labels: dashboardData.reportTrends.map(data => data.date),
+                    datasets: [{
+                        label: "Reports Generated",
+                        data: dashboardData.reportTrends.map(data => data.reports),
+                        borderColor: "purple",
+                        backgroundColor: "rgba(153, 102, 255, 0.2)",
+                        fill: true,
+                    }]
+                };
+                new Chart(document.getElementById("reportChart"), { type: "line", data: reportData });
+            } catch (error) {
+                console.error('Error populating dashboard:', error);
+                document.getElementById('dailyQuote').textContent = 'Failed to load quote.';
+                document.getElementById('usageDays').textContent = 'N/A';
+                document.getElementById('systemStatus').textContent = 'Error';
+                document.getElementById('reportCount').textContent = 'N/A';
+                document.getElementById('uploadCount').textContent = 'N/A';
+                document.getElementById('diseaseCount').textContent = 'N/A';
+                document.getElementById('adultMeds').textContent = 'Error loading recommendations';
+                document.getElementById('seniorMeds').textContent = 'Error loading recommendations';
+                document.getElementById('childMeds').textContent = 'Error loading recommendations';
+                document.getElementById('medicationReminder').textContent = 'Failed to load reminders.';
+            }
+        }
+
+        // Initialize dashboard
+        populateDashboard();
+    </script>
+</body>
+</html>

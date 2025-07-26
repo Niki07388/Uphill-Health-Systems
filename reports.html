@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - Uphill Health</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Add some basic styles if not covered by your existing style.css */
+        .container {
+            max-width: 960px;
+            margin-top: 20px; /* Added some top margin for better spacing */
+            margin-bottom: 50px; /* Added some bottom margin for better spacing */
+        }
+        .content-section {
+            padding: 20px 0;
+        }
+        .intro-text {
+            margin-bottom: 30px;
+        }
+        .report-section {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 8px rgba(0,0,0,.05);
+        }
+        .report-section h3 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        .table-responsive {
+            margin-top: 20px;
+        }
+        .notes {
+            margin-top: 40px;
+            padding: 20px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            background-color: #e9ecef;
+        }
+        .notes h3 {
+            color: #343a40;
+            margin-bottom: 15px;
+        }
+        .alert {
+            margin-top: 20px;
+        }
+        header .logo {
+            font-size: 2em;
+            color: #fff;
+            margin: 0;
+        }
+        header {
+            background-color: #007bff; /* Example blue */
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        }
+        header nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        header nav ul li {
+            margin-left: 20px;
+        }
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        header nav ul li a:hover,
+        header nav ul li a.active {
+            background-color: #0056b3; /* Darker blue on hover/active */
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        footer {
+            background-color: #343a40; /* Dark gray */
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.9em;
+            margin-top: 50px;
+        }
+        footer .footer-links a {
+            color: #adb5bd; /* Lighter gray */
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+        footer .footer-links a:hover {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">Uphill Health</h1>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('about_us') }}">About Us</a></li>
+                    <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                    <li><a href="{{ url_for('services') }}">Services</a></li>
+                    <li><a href="{{ url_for('reports') }}" class="active">Reports</a></li>
+                    <li><a href="{{ url_for('profile') }}">Profile</a></li>
+                    <li><a href="{{ url_for('settings') }}">Settings</a></li>
+                    {% if 'user' in session %}
+                        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    {% else %}
+                        <li><a href="{{ url_for('login') }}">Login</a></li>
+                        <li><a href="{{ url_for('signup') }}">Signup</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container content-section">
+        <h2>Your Health Reports</h2>
+        <p class="intro-text">Access your personalized health reports and download them in various formats.</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <div class="report-section">
+            <h3>Your AI Analyzed Health Reports</h3>
+            <p>These reports are generated by our AI Doctor based on the health data and symptoms you submit via the AI Risk Analysis tool. Click to download a comprehensive PDF report.</p>
+
+            {% if ai_reports %}
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Report ID</th>
+                                <th>Date & Time</th>
+                                <th>Original File</th>
+                                <th>Submitted Symptoms</th>
+                                <th>AI Condition (Summary)</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for report in ai_reports %}
+                            <tr>
+                                <td>{{ report.id }}</td>
+                                <td>{{ report.report_date.strftime('%Y-%m-%d %H:%M') }}</td>
+                                <td>{{ report.uploaded_filename if report.uploaded_filename else 'N/A' }}</td>
+                                <td>{{ report.symptoms_submitted | truncate(70, True) }}</td>
+                                <td>{{ report.ai_condition | truncate(100, True) }}</td>
+                                <td>
+                                    <a href="{{ url_for('download_ai_report', report_id=report.id) }}" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-download"></i> Download AI Report PDF
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="alert alert-info" role="alert">
+                    <h4 class="alert-heading">No AI Health Reports Found!</h4>
+                    <p>It looks like you haven't generated any AI-analyzed health reports yet.</p>
+                    <hr>
+                    <p class="mb-0">To get your personalized AI health report, please visit the <a href="{{ url_for('ai_risk_analysis') }}">AI Risk Analysis</a> page, upload your health data (e.g., medical documents, lab results), and describe your symptoms. Our AI Doctor will then provide an analysis.</p>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="report-section">
+            <h3>Other Reports (Sample Functionality)</h3>
+            <p>These are examples of generic health reports. For personalized AI-driven insights, please use the section above.</p>
+            <div class="report-options">
+                <a href="{{ url_for('download_csv') }}" class="btn btn-secondary me-2">
+                    <i class="fas fa-file-csv"></i> Download Sample CSV Report
+                </a>
+                <a href="{{ url_for('download_pdf') }}" class="btn btn-secondary">
+                    <i class="fas fa-file-pdf"></i> Download Sample Hardcoded PDF Report
+                </a>
+            </div>
+        </div>
+
+        <div class="notes">
+            <h3>Notes on Reports:</h3>
+            <ul>
+                <li><strong>AI Analyzed Reports:</strong> Provide a detailed summary of your health based on your submitted data and AI's insights.</li>
+                <li><strong>CSV Reports:</strong> Offer raw data suitable for in-depth analysis using spreadsheet software.</li>
+                <li><strong>PDF Reports:</strong> Present a structured and comprehensive overview of your health metrics and analysis.</li>
+                <li>Remember to always consult with a qualified healthcare professional for any medical concerns or before making any decisions based on these reports.</li>
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Uphill Health. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="{{ url_for('data_security') }}">Data Security & Privacy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    </body>
+</html>

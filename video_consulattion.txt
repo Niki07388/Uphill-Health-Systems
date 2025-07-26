@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Consultation | Uphill Health Bots</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --light-bg: #f5f7fa;
+            --dark-bg: #1a1a2e;
+            --light-text: #2c3e50;
+            --dark-text: #e0e0e0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            transition: background 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+        .dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(90deg, #2c3e50, #3498db);
+            color: white;
+            padding: 15px 30px;
+            margin-left: 280px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: calc(100% - 280px);
+            z-index: 1000;
+        }
+        .navbar h2 {
+            font-size: 24px;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        .profile-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 15px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .profile-icon:hover {
+            transform: scale(1.1);
+        }
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            min-width: 200px;
+            z-index: 1000;
+        }
+        .dark-mode .profile-dropdown {
+            background: #2c3e50;
+            color: var(--dark-text);
+        }
+        .profile-dropdown.active {
+            display: block;
+        }
+        .profile-dropdown p {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            color: var(--light-text);
+        }
+        .dark-mode .profile-dropdown p {
+            color: var(--dark-text);
+        }
+        .logout-btn {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        .dark-mode .logout-btn {
+            color: white;
+        }
+        .logout-btn:hover {
+            background: linear-gradient(45deg, #c0392b, #a93226);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+        .container {
+            text-align: left;
+            margin: 100px 30px 50px 280px;
+            max-width: 900px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        .dark-mode .container {
+            background: rgba(30, 30, 30, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            color: #e0e0e0;
+        }
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: linear-gradient(180deg, #2c3e50, #34495e);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            color: white;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+            transition: width 0.3s;
+        }
+        .sidebar h2 {
+            font-size: 22px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #ecf0f1;
+        }
+        .sidebar a {
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 12px 15px;
+            margin: 10px 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            transition: background 0.3s, color 0.3s;
+        }
+        .sidebar a:hover {
+            background: #e74c3c;
+            color: white;
+        }
+        .toggle-btn {
+            cursor: pointer;
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #8e44ad, #9b59b6);
+            border: none;
+            color: white;
+            border-radius: 25px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .toggle-btn:hover {
+            background: linear-gradient(45deg, #9b59b6, #7f349a);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(142, 68, 173, 0.4);
+        }
+        .toggle-btn span {
+            margin-left: 8px;
+            font-size: 18px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        .dark-mode .form-group label {
+            color: #ecf0f1;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus, .form-group select:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        .dark-mode .form-group input, .dark-mode .form-group select {
+            background: #2c3e50;
+            color: #e0e0e0;
+            border-color: #34495e;
+        }
+        .submit-btn {
+            padding: 12px 25px;
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            border: none;
+            color: white;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .submit-btn:hover {
+            background: linear-gradient(45deg, #27ae60, #219653);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Menu</h2>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/profile">Profile</a>
+        <a href="/settings">Settings</a>
+        <a href="/reports">Reports</a>
+        <a href="/services">Services</a>
+    </div>
+
+    <div class="navbar">
+        <h2>Uphill Health Bots</h2>
+        <button class="toggle-btn" onclick="toggleDarkMode()">
+            Dark Mode
+            <span id="darkIcon">🌙</span>
+        </button>
+        <div class="profile">
+            <span>Welcome, {{ username }}</span>
+            <img class="profile-icon" src="{{ '/static/uploads/' + profile_pic if profile_pic != 'default.jpg' else 'https://via.placeholder.com/40' }}" alt="Profile Photo" onclick="toggleProfileDropdown()">
+            <div class="profile-dropdown" id="profileDropdown">
+                <p>Email: {{ email | default('Not provided') }}</p>
+                <button class="logout-btn" onclick="window.location.href='{{ url_for('logout') }}'">Log Out</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 style="color: #2c3e50; font-size: 32px; text-align: center;">Video Consultation</h1>
+        <p style="font-size: 18px; color: #7f8c8d; text-align: center;">Schedule a video consultation with our expert doctors.</p>
+        
+        <form method="POST" action="{{ url_for('video_consultation') }}">
+            <div class="form-group">
+                <label for="doctor">Select Doctor</label>
+                <select id="doctor" name="doctor" required>
+                    <option value="">Choose a doctor</option>
+                    <option value="Dr. Smith - Cardiologist">Dr. Smith - Cardiologist</option>
+                    <option value="Dr. Jones - General Practitioner">Dr. Jones - General Practitioner</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="date">Preferred Date</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+            <div class="form-group">
+                <label for="time">Preferred Time</label>
+                <input type="time" id="time" name="time" required>
+            </div>
+            <button type="submit" class="submit-btn">Schedule Consultation</button>
+        </form>
+        
+        {% if confirmation %}
+        <div id="result" style="margin-top: 20px; font-size: 16px; color: #2c3e50;">
+            {{ confirmation }}
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function toggleDarkMode() {
+            const body = document.body;
+            const icon = document.getElementById('darkIcon');
+            body.classList.toggle("dark-mode");
+            icon.textContent = body.classList.contains("dark-mode") ? '☀️' : '🌙';
+        }
+
+        function toggleProfileDropdown() {
+            const dropdown = document.getElementById('profileDropdown');
+            dropdown.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

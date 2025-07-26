@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Uphill Health Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #2c3e50; /* Dark background */
+            color: #ecf0f1; /* Light text */
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: #1a242f; /* Even darker header */
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header .logo {
+            font-size: 2em;
+            color: #1abc9c; /* Teal for logo */
+            margin-left: 20px;
+        }
+        header nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            margin-right: 20px;
+        }
+        header nav ul li {
+            margin-left: 20px;
+        }
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        header nav ul li a:hover {
+            background-color: #1abc9c; /* Teal on hover */
+            color: #1a242f; /* Dark text on hover */
+        }
+        .content-section {
+            background-color: #34495e; /* Darker content background */
+            margin-top: 20px;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .content-section h2 {
+            color: #ecf0f1; /* Light text for headings */
+            font-size: 2em;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .content-section h3 {
+            color: #3498db; /* Blue for subheadings */
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #557999; /* Slightly lighter border */
+            padding-bottom: 10px;
+        }
+        .content-section p {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: #bdc3c7; /* Lighter text for paragraphs */
+        }
+        .content-section ul {
+            list-style: disc;
+            margin-left: 20px;
+            margin-bottom: 15px;
+            color: #bdc3c7;
+        }
+        .content-section ul li {
+            margin-bottom: 8px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 40px;
+            background-color: #1a242f; /* Dark footer */
+            color: #f4f7f6;
+            font-size: 0.9em;
+        }
+        footer a {
+            color: #1abc9c; /* Teal for footer links */
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">Uphill Health Management</h1>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('Mangement_aboutus') }}">About Us</a></li>
+                    <li><a href="{{ url_for('management_dashboard') }}">Dashboard</a></li>
+                    <li><a href="{{ url_for('management_logout') }}">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="content-section">
+            <h2>About Uphill Health Management</h2>
+
+            <p>Welcome to the **Uphill Health Management Portal**, your central hub for overseeing all operations within Uphill Health. Our mission is to streamline healthcare services, making them more accessible, efficient, and user-friendly for both patients and medical professionals.</p>
+
+            <p>This management dashboard provides a comprehensive overview of key activities, allowing our team to monitor and manage:</p>
+            <ul>
+                <li>**Patient Appointments:** Track and manage all scheduled appointments, ensuring smooth operations at our various locations.</li>
+                <li>**Video Consultations:** Oversee virtual consultations, facilitating seamless telemedicine services.</li>
+                <li>**Medicine Orders:** Monitor the entire process of medicine orders, from prescription to delivery, ensuring timely and accurate fulfillment.</li>
+            </ul>
+
+            <h3>Our Vision</h3>
+            <p>At Uphill Health, we envision a future where healthcare is not just a service, but a seamless and integrated experience. We are committed to leveraging technology to enhance patient care, empower healthcare providers, and improve operational efficiency across the board.</p>
+
+            <h3>Our Commitment</h3>
+            <p>We are dedicated to maintaining the highest standards of **data security and privacy**, ensuring that all patient and operational data is handled with the utmost care and in compliance with all relevant regulations. Our team is constantly working to improve and expand the capabilities of this platform to better serve our users and achieve our healthcare objectives.</p>
+
+            <p>Thank you for being a vital part of the Uphill Health mission. Together, we are building a healthier future.</p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; {{ datetime.now().year }} Uphill Health. Management Portal.</p>
+        </div>
+    </footer>
+</body>
+</html>
